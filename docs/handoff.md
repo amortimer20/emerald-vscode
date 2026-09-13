@@ -8,8 +8,8 @@ developed and packaged independently while the Emerald compiler evolves.
 ## Implemented
 
 - Registers the Emerald language and `.em` file extension.
-- Uses the Emerald gem artwork for the extension icon and ships the matching
-  `file_type_emerald.svg` custom icon for vscode-icons.
+- Includes the Emerald gem's source SVG and rendered PNG for the extension artwork, plus
+  the matching `file_type_emerald.svg` custom file icon for vscode-icons.
 - Highlights declarations, names, current keywords, built-in types, literals, operators,
   annotations, function calls, and members with standard TextMate scopes.
 - Handles documentation and line comments, recursively nested block comments, raw strings,
@@ -30,8 +30,8 @@ deferred design decisions. Update this extension as compiler syntax lands.
 - `npm test`
 - `npm run package`
 
-Both pass with Node 26.8.1 and npm 11.19.0. Packaging produces
-`emerald-vscode-0.1.0.vsix`.
+All nine tests pass with Node 26.8.1 and npm 11.19.0. Packaging produces
+`emerald-vscode-0.1.0.vsix` and includes all three icon assets.
 
 ## Known limitations and next work
 
