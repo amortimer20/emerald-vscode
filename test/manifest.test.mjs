@@ -24,11 +24,10 @@ test("manifest connects .em files to the Emerald grammar and language configurat
   assert.ok(fs.existsSync(path.join(root, grammar.path)));
 });
 
-test("manifest and package include the Emerald icon artwork", () => {
+test("manifest and package include the Emerald extension artwork", () => {
   const icon = fs.readFileSync(path.join(root, manifest.icon));
 
   assert.equal(manifest.icon, "icons/emerald.png");
   assert.deepEqual([...icon.subarray(0, 8)], [137, 80, 78, 71, 13, 10, 26, 10]);
   assert.ok(fs.existsSync(path.join(root, "icons/emerald.svg")));
-  assert.ok(fs.existsSync(path.join(root, "icons/file_type_emerald.svg")));
 });

@@ -8,8 +8,7 @@ developed and packaged independently while the Emerald compiler evolves.
 ## Implemented
 
 - Registers the Emerald language and `.em` file extension.
-- Includes the Emerald gem's source SVG and rendered PNG for the extension artwork, plus
-  the matching `file_type_emerald.svg` custom file icon for vscode-icons.
+- Includes the Emerald gem's source SVG and rendered PNG for the extension artwork.
 - Highlights declarations, names, current keywords, built-in types, literals, operators,
   annotations, function calls, and members with standard TextMate scopes.
 - Handles documentation and line comments, recursively nested block comments, raw strings,
@@ -31,7 +30,7 @@ deferred design decisions. Update this extension as compiler syntax lands.
 - `npm run package`
 
 All nine tests pass with Node 26.8.1 and npm 11.19.0. Packaging produces
-`emerald-vscode-0.1.0.vsix` and includes all three icon assets.
+`emerald-vscode-0.1.0.vsix` and includes both extension artwork files.
 
 ## Known limitations and next work
 
@@ -43,6 +42,3 @@ All nine tests pass with Node 26.8.1 and npm 11.19.0. Packaging produces
 - Repository and issue URLs should be added after the remote repository exists.
 - Snippets and formatting can be added in small independent slices after the language
   syntax they expose has stabilized.
-- vscode-icons custom file icons live in VS Code's user directory and cannot be registered
-  by a declarative language extension; `README.md` documents the one-time copy, association,
-  and **Apply Icons Customization** steps.
