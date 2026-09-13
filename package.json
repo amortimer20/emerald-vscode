@@ -1,9 +1,10 @@
 {
-  "name": "emerald-lang",
+  "name": "emerald-vscode",
   "displayName": "Emerald Lang",
   "description": "Syntax highlighting and editor support for the Emerald programming language.",
   "version": "0.1.0",
   "publisher": "emerald-lang",
+  "icon": "icons/emerald.png",
   "license": "MIT",
   "engines": {
     "vscode": "^1.85.0"

@@ -8,6 +8,8 @@ developed and packaged independently while the Emerald compiler evolves.
 ## Implemented
 
 - Registers the Emerald language and `.em` file extension.
+- Uses the Emerald gem artwork for the extension icon and ships the matching
+  `file_type_emerald.svg` custom icon for vscode-icons.
 - Highlights declarations, names, current keywords, built-in types, literals, operators,
   annotations, function calls, and members with standard TextMate scopes.
 - Handles documentation and line comments, recursively nested block comments, raw strings,
@@ -29,14 +31,18 @@ deferred design decisions. Update this extension as compiler syntax lands.
 - `npm run package`
 
 Both pass with Node 26.8.1 and npm 11.19.0. Packaging produces
-`emerald-lang-0.1.0.vsix`.
+`emerald-vscode-0.1.0.vsix`.
 
 ## Known limitations and next work
 
 - TextMate grammars do not know resolved types or symbols. Semantic highlighting,
   completion, diagnostics, navigation, and renaming require a later language server.
-- The `publisher` manifest value must be matched to the actual Visual Studio Marketplace
-  publisher before publication.
+- The package name is `emerald-vscode`, avoiding a collision with the unrelated published
+  extension `emerald-lang.emerald-lang`. The `publisher` manifest value must still be
+  matched to the actual Visual Studio Marketplace publisher before publication.
 - Repository and issue URLs should be added after the remote repository exists.
 - Snippets and formatting can be added in small independent slices after the language
   syntax they expose has stabilized.
+- vscode-icons custom file icons live in VS Code's user directory and cannot be registered
+  by a declarative language extension; `README.md` documents the one-time copy, association,
+  and **Apply Icons Customization** steps.
