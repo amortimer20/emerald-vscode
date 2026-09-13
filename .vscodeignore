@@ -1,0 +1,11 @@
+.git/**
+.gitignore
+.vscode/**
+AGENTS.md
+CLAUDE.md
+docs/**
+examples/**
+test/**
+node_modules/**
+package-lock.json
+*.log

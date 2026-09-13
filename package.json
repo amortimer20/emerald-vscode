@@ -1,0 +1,52 @@
+{
+  "name": "emerald-lang",
+  "displayName": "Emerald Lang",
+  "description": "Syntax highlighting and editor support for the Emerald programming language.",
+  "version": "0.1.0",
+  "publisher": "emerald-lang",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "emerald",
+    "emerald-lang",
+    "language",
+    "syntax-highlighting"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "package": "vsce package --no-dependencies --allow-missing-repository"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "3.9.2",
+    "vscode-oniguruma": "2.0.1",
+    "vscode-textmate": "9.3.2"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "emerald",
+        "aliases": [
+          "Emerald Lang",
+          "Emerald",
+          "emerald"
+        ],
+        "extensions": [
+          ".em"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "emerald",
+        "scopeName": "source.emerald",
+        "path": "./syntaxes/emerald.tmLanguage.json"
+      }
+    ]
+  }
+}

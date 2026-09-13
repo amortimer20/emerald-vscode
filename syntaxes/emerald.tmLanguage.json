@@ -1,0 +1,284 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Emerald",
+  "scopeName": "source.emerald",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#annotations" },
+    { "include": "#declarations" },
+    { "include": "#members" },
+    { "include": "#constants" },
+    { "include": "#builtin-types" },
+    { "include": "#keywords" },
+    { "include": "#numbers" },
+    { "include": "#function-calls" },
+    { "include": "#types" },
+    { "include": "#operators" },
+    { "include": "#punctuation" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        { "include": "#block-comment" },
+        {
+          "begin": "##",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.comment.emerald" }
+          },
+          "end": "$",
+          "name": "comment.line.documentation.emerald"
+        },
+        {
+          "begin": "#(?!\\[|#)",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.comment.emerald" }
+          },
+          "end": "$",
+          "name": "comment.line.number-sign.emerald"
+        }
+      ]
+    },
+    "block-comment": {
+      "begin": "#\\[",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.comment.begin.emerald" }
+      },
+      "end": "\\]#",
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.comment.end.emerald" }
+      },
+      "name": "comment.block.emerald",
+      "patterns": [
+        { "include": "#block-comment" }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        { "include": "#multiline-string" },
+        { "include": "#double-string" },
+        { "include": "#raw-string" }
+      ]
+    },
+    "multiline-string": {
+      "applyEndPatternLast": 1,
+      "begin": "\"\"\"",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.string.begin.emerald" }
+      },
+      "end": "\"\"\"",
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.string.end.emerald" }
+      },
+      "name": "string.quoted.triple.emerald",
+      "patterns": [
+        { "include": "#interpolation" },
+        { "include": "#escape" }
+      ]
+    },
+    "double-string": {
+      "applyEndPatternLast": 1,
+      "begin": "\"",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.string.begin.emerald" }
+      },
+      "end": "\"|$",
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.string.end.emerald" }
+      },
+      "name": "string.quoted.double.emerald",
+      "patterns": [
+        { "include": "#interpolation" },
+        { "include": "#escape" }
+      ]
+    },
+    "raw-string": {
+      "begin": "'",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.string.begin.emerald" }
+      },
+      "end": "'|$",
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.string.end.emerald" }
+      },
+      "name": "string.quoted.single.raw.emerald"
+    },
+    "escape": {
+      "patterns": [
+        {
+          "match": "\\\\(?:[ntr0\\\\\"'#]|u\\{[0-9A-Fa-f]{1,6}\\})",
+          "name": "constant.character.escape.emerald"
+        },
+        {
+          "match": "\\\\.",
+          "name": "invalid.illegal.escape.emerald"
+        }
+      ]
+    },
+    "interpolation": {
+      "begin": "#\\{",
+      "beginCaptures": {
+        "0": { "name": "punctuation.section.interpolation.begin.emerald" }
+      },
+      "contentName": "meta.embedded.expression.emerald",
+      "end": "\\}",
+      "endCaptures": {
+        "0": { "name": "punctuation.section.interpolation.end.emerald" }
+      },
+      "patterns": [
+        { "include": "#interpolation-braces" },
+        { "include": "$self" }
+      ]
+    },
+    "interpolation-braces": {
+      "begin": "\\{",
+      "beginCaptures": {
+        "0": { "name": "punctuation.section.braces.begin.emerald" }
+      },
+      "end": "\\}",
+      "endCaptures": {
+        "0": { "name": "punctuation.section.braces.end.emerald" }
+      },
+      "patterns": [
+        { "include": "#interpolation-braces" },
+        { "include": "$self" }
+      ]
+    },
+    "annotations": {
+      "match": "(@)([_\\p{L}][\\p{L}\\p{N}_]*[!?]?)",
+      "captures": {
+        "1": { "name": "punctuation.definition.annotation.emerald" },
+        "2": { "name": "storage.modifier.annotation.emerald" }
+      }
+    },
+    "declarations": {
+      "patterns": [
+        {
+          "match": "\\b(using)\\s+([_\\p{L}][\\p{L}\\p{N}_]*)\\s*(=)\\s*([_\\p{L}][\\p{L}\\p{N}_]*(?:\\.[_\\p{L}][\\p{L}\\p{N}_]*)*)",
+          "captures": {
+            "1": { "name": "keyword.control.import.emerald" },
+            "2": { "name": "entity.name.namespace.alias.emerald" },
+            "3": { "name": "keyword.operator.assignment.emerald" },
+            "4": { "name": "entity.name.namespace.emerald" }
+          }
+        },
+        {
+          "match": "\\b(struct|class|trait|enum)\\s+([_\\p{L}][\\p{L}\\p{N}_]*[!?]?)",
+          "captures": {
+            "1": { "name": "storage.type.emerald" },
+            "2": { "name": "entity.name.type.emerald" }
+          }
+        },
+        {
+          "match": "\\b(func)\\s+([_\\p{L}][\\p{L}\\p{N}_]*[!?]?(?:\\.[_\\p{L}][\\p{L}\\p{N}_]*[!?]?)?)",
+          "captures": {
+            "1": { "name": "storage.type.function.emerald" },
+            "2": { "name": "entity.name.function.emerald" }
+          }
+        },
+        {
+          "match": "\\b(constructor)\\b",
+          "name": "storage.type.function.emerald"
+        },
+        {
+          "match": "\\b(var|const)\\s+([_\\p{L}][\\p{L}\\p{N}_]*[!?]?)",
+          "captures": {
+            "1": { "name": "storage.modifier.emerald" },
+            "2": { "name": "variable.other.definition.emerald" }
+          }
+        },
+        {
+          "match": "\\b(using)\\s+([_\\p{L}][\\p{L}\\p{N}_]*(?:\\.[_\\p{L}][\\p{L}\\p{N}_]*)*)",
+          "captures": {
+            "1": { "name": "keyword.control.import.emerald" },
+            "2": { "name": "entity.name.namespace.emerald" }
+          }
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "match": "\\b(?:true|false)\\b",
+          "name": "constant.language.boolean.emerald"
+        },
+        {
+          "match": "\\bnothing\\b",
+          "name": "constant.language.null.emerald"
+        },
+        {
+          "match": "\\b(?:self|super)\\b",
+          "name": "variable.language.emerald"
+        }
+      ]
+    },
+    "builtin-types": {
+      "match": "\\b(?:Nothing|Bool|Int|Float|String)\\b",
+      "name": "support.type.builtin.emerald"
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "match": "\\b(?:if|then|else|while|for|case|when|try|catch|finally|return|break|continue|raise|assert)\\b",
+          "name": "keyword.control.emerald"
+        },
+        {
+          "match": "\\b(?:extends|with)\\b",
+          "name": "storage.modifier.emerald"
+        },
+        {
+          "match": "\\b(?:and|or|not|in|is)\\b",
+          "name": "keyword.operator.word.emerald"
+        }
+      ]
+    },
+    "numbers": {
+      "match": "(?<![\\p{L}\\p{N}_])(?:[0-9](?:_?[0-9])*)(?:\\.(?:[0-9](?:_?[0-9])*))?(?:[eE][+-]?[0-9](?:_?[0-9])*)?(?![\\p{L}\\p{N}_])",
+      "name": "constant.numeric.emerald"
+    },
+    "function-calls": {
+      "patterns": [
+        {
+          "match": "\\b(?:print|write|input|input_maybe)(?=\\s*\\()",
+          "name": "support.function.builtin.emerald"
+        },
+        {
+          "match": "(?<!\\.)\\b[_\\p{L}][\\p{L}\\p{N}_]*[!?]?(?=\\s*\\()",
+          "name": "entity.name.function.call.emerald"
+        }
+      ]
+    },
+    "members": {
+      "patterns": [
+        {
+          "match": "(?<=\\.)[_\\p{L}][\\p{L}\\p{N}_]*[!?]?(?=\\s*\\()",
+          "name": "entity.name.function.member.emerald"
+        },
+        {
+          "match": "(?<=\\.)[_\\p{L}][\\p{L}\\p{N}_]*[!?]?",
+          "name": "variable.other.member.emerald"
+        }
+      ]
+    },
+    "types": {
+      "match": "\\b\\p{Lu}[\\p{L}\\p{N}_]*\\??",
+      "name": "entity.name.type.emerald"
+    },
+    "operators": {
+      "match": "\\*\\*|//=?|\\.\\.<|\\.\\.|\\?\\.|==|!=|<=|>=|\\+=|-=|\\*=|/=|[+%*/=<>?-]",
+      "name": "keyword.operator.emerald"
+    },
+    "punctuation": {
+      "patterns": [
+        {
+          "match": "[{}\\[\\]()]",
+          "name": "punctuation.section.brackets.emerald"
+        },
+        {
+          "match": "[,:.]",
+          "name": "punctuation.separator.emerald"
+        }
+      ]
+    }
+  }
+}
