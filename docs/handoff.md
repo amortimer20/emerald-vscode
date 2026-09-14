@@ -15,6 +15,7 @@ developed and packaged independently while the Emerald compiler evolves.
   multiline strings, escapes, and interpolated Emerald expressions.
 - Configures comment toggling, bracket matching, automatic closing, surrounding pairs, and
   brace-based indentation.
+- Includes starter snippets for function declarations and block-based `if` statements.
 - Includes a representative Emerald file and tests that load the grammar through VS Code's
   TextMate and Oniguruma libraries.
 
@@ -40,5 +41,5 @@ All nine tests pass with Node 26.8.1 and npm 11.19.0. Packaging produces
   extension `emerald-lang.emerald-lang`. The `publisher` manifest value must still be
   matched to the actual Visual Studio Marketplace publisher before publication.
 - Repository and issue URLs should be added after the remote repository exists.
-- Snippets and formatting can be added in small independent slices after the language
-  syntax they expose has stabilized.
+- More snippets can be added in small independent slices after the language syntax they
+  expose has stabilized.

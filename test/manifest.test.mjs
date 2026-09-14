@@ -24,6 +24,16 @@ test("manifest connects .em files to the Emerald grammar and language configurat
   assert.ok(fs.existsSync(path.join(root, grammar.path)));
 });
 
+test("manifest contributes the starter Emerald snippets", () => {
+  const snippet = manifest.contributes.snippets.find(({ language }) => language === "emerald");
+  assert.ok(snippet);
+
+  const snippets = JSON.parse(fs.readFileSync(path.join(root, snippet.path), "utf8"));
+  assert.deepEqual(Object.keys(snippets), ["Function declaration", "If statement"]);
+  assert.deepEqual(snippets["Function declaration"].prefix, "func");
+  assert.deepEqual(snippets["If statement"].prefix, "if");
+});
+
 test("manifest and package include the Emerald extension artwork", () => {
   const icon = fs.readFileSync(path.join(root, manifest.icon));
 

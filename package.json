@@ -48,6 +48,12 @@
         "scopeName": "source.emerald",
         "path": "./syntaxes/emerald.tmLanguage.json"
       }
+    ],
+    "snippets": [
+      {
+        "language": "emerald",
+        "path": "./snippets/emerald.json"
+      }
     ]
   }
 }
