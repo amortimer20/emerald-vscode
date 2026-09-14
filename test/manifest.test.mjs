@@ -45,7 +45,12 @@ test("manifest contributes the starter Emerald snippets", () => {
     "Lambda",
     "Test function",
     "Override method",
-    "Abstract class"
+    "Abstract class",
+    "Constructor",
+    "Read-only property",
+    "Writable property",
+    "Type-level function",
+    "Function with defaults"
   ]);
   assert.deepEqual(snippets["Variable declaration"].prefix, "var");
   assert.deepEqual(snippets["Constant declaration"].prefix, "const");
@@ -63,6 +68,11 @@ test("manifest contributes the starter Emerald snippets", () => {
   assert.deepEqual(snippets["Test function"].prefix, "test");
   assert.deepEqual(snippets["Override method"].prefix, "override");
   assert.deepEqual(snippets["Abstract class"].prefix, "abstract");
+  assert.deepEqual(snippets["Constructor"].prefix, "constructor");
+  assert.deepEqual(snippets["Read-only property"].prefix, "property");
+  assert.deepEqual(snippets["Writable property"].prefix, "property-set");
+  assert.deepEqual(snippets["Type-level function"].prefix, "typefunc");
+  assert.deepEqual(snippets["Function with defaults"].prefix, "func-default");
 });
 
 test("manifest and package include the Emerald extension artwork", () => {

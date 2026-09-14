@@ -159,5 +159,56 @@
       "}"
     ],
     "description": "Declare an abstract Emerald class"
+  },
+  "Constructor": {
+    "prefix": "constructor",
+    "body": [
+      "constructor(${1:parameters}) {",
+      "\t${2:self.field = value}",
+      "\t$0",
+      "}"
+    ],
+    "description": "Declare a custom Emerald constructor"
+  },
+  "Read-only property": {
+    "prefix": "property",
+    "body": [
+      "const ${1:name}: ${2:Type} {",
+      "\treturn ${0:expression}",
+      "}"
+    ],
+    "description": "Declare a computed read-only property"
+  },
+  "Writable property": {
+    "prefix": "property-set",
+    "body": [
+      "var ${1:name}: ${2:Type} {",
+      "\tget {",
+      "\t\treturn ${3:expression}",
+      "\t}",
+      "\tset {",
+      "\t\t${4:self.field = value}",
+      "\t}",
+      "}"
+    ],
+    "description": "Declare a computed get/set property"
+  },
+  "Type-level function": {
+    "prefix": "typefunc",
+    "body": [
+      "func ${1:Type}.${2:name}(): ${3:ReturnType} {",
+      "\treturn ${0:value}",
+      "}"
+    ],
+    "description": "Declare a function owned by an Emerald type"
+  },
+  "Function with defaults": {
+    "prefix": "func-default",
+    "body": [
+      "func ${1:name}(${2:required}: ${3:Type}, ${4:optional}: ${5:Type} = ${6:default}): ${7:Nothing} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Declare an Emerald function with a default parameter"
   }
 }
