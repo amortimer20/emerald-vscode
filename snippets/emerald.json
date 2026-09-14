@@ -210,5 +210,72 @@
       "}"
     ],
     "description": "Declare an Emerald function with a default parameter"
+  },
+  "Raise error": {
+    "prefix": "raise",
+    "body": [
+      "raise ${1:Error}(\"${0:message}\")"
+    ],
+    "description": "Raise a typed Emerald error"
+  },
+  "Try-finally statement": {
+    "prefix": "try-finally",
+    "body": [
+      "try {",
+      "\t${1:operation}",
+      "}",
+      "finally {",
+      "\t${2:cleanup}",
+      "}",
+      "$0"
+    ],
+    "description": "Run cleanup after an operation completes or raises"
+  },
+  "File with open": {
+    "prefix": "with-open",
+    "body": [
+      "File.with_open(\"${1:path}\") { ${2:file} =>",
+      "\t${0:file.read()}",
+      "}"
+    ],
+    "description": "Open a file and close it after the trailing block"
+  },
+  "Using namespace": {
+    "prefix": "using",
+    "body": [
+      "using ${0:Namespace}"
+    ],
+    "description": "Shorten names from an Emerald namespace"
+  },
+  "Using alias": {
+    "prefix": "using-alias",
+    "body": [
+      "using ${1:Alias} = ${0:Namespace.Name}"
+    ],
+    "description": "Alias an Emerald namespace or declaration"
+  },
+  "Named-argument call": {
+    "prefix": "call-named",
+    "body": [
+      "${1:function}(${2:parameter}: ${0:value})"
+    ],
+    "description": "Call an Emerald function with a named argument"
+  },
+  "Method call": {
+    "prefix": "method",
+    "body": [
+      "${1:receiver}.${2:method}(${0:arguments})"
+    ],
+    "description": "Call an Emerald method"
+  },
+  "Method chain": {
+    "prefix": "chain",
+    "body": [
+      "${1:receiver}",
+      "\t.${2:first_method}()",
+      "\t.${3:next_method}()",
+      "\t.${0:result}"
+    ],
+    "description": "Build a wrapped Emerald method chain"
   }
 }

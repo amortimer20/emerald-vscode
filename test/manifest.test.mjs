@@ -50,7 +50,15 @@ test("manifest contributes the starter Emerald snippets", () => {
     "Read-only property",
     "Writable property",
     "Type-level function",
-    "Function with defaults"
+    "Function with defaults",
+    "Raise error",
+    "Try-finally statement",
+    "File with open",
+    "Using namespace",
+    "Using alias",
+    "Named-argument call",
+    "Method call",
+    "Method chain"
   ]);
   assert.deepEqual(snippets["Variable declaration"].prefix, "var");
   assert.deepEqual(snippets["Constant declaration"].prefix, "const");
@@ -73,6 +81,14 @@ test("manifest contributes the starter Emerald snippets", () => {
   assert.deepEqual(snippets["Writable property"].prefix, "property-set");
   assert.deepEqual(snippets["Type-level function"].prefix, "typefunc");
   assert.deepEqual(snippets["Function with defaults"].prefix, "func-default");
+  assert.deepEqual(snippets["Raise error"].prefix, "raise");
+  assert.deepEqual(snippets["Try-finally statement"].prefix, "try-finally");
+  assert.deepEqual(snippets["File with open"].prefix, "with-open");
+  assert.deepEqual(snippets["Using namespace"].prefix, "using");
+  assert.deepEqual(snippets["Using alias"].prefix, "using-alias");
+  assert.deepEqual(snippets["Named-argument call"].prefix, "call-named");
+  assert.deepEqual(snippets["Method call"].prefix, "method");
+  assert.deepEqual(snippets["Method chain"].prefix, "chain");
 });
 
 test("manifest and package include the Emerald extension artwork", () => {
