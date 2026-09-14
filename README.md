@@ -9,7 +9,7 @@ The first release provides:
 - interpolated, multiline, and raw strings;
 - ordinary, documentation, nested block comments;
 - starter snippets for declarations, types, constructors, properties, control flow,
-  lambdas, errors, resources, calls, and test functions;
+  lambdas, collections, expressions, errors, resources, calls, and test functions;
 - comment toggling, bracket matching, automatic closing, and basic indentation.
 
 The grammar follows the compiler's current lexer and will evolve with the language. Rich

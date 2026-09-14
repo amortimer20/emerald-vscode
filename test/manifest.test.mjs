@@ -58,7 +58,14 @@ test("manifest contributes the starter Emerald snippets", () => {
     "Using alias",
     "Named-argument call",
     "Method call",
-    "Method chain"
+    "Method chain",
+    "List literal",
+    "Dictionary literal",
+    "Set literal",
+    "Tuple literal",
+    "Range literal",
+    "If expression",
+    "Case expression"
   ]);
   assert.deepEqual(snippets["Variable declaration"].prefix, "var");
   assert.deepEqual(snippets["Constant declaration"].prefix, "const");
@@ -89,6 +96,13 @@ test("manifest contributes the starter Emerald snippets", () => {
   assert.deepEqual(snippets["Named-argument call"].prefix, "call-named");
   assert.deepEqual(snippets["Method call"].prefix, "method");
   assert.deepEqual(snippets["Method chain"].prefix, "chain");
+  assert.deepEqual(snippets["List literal"].prefix, "list");
+  assert.deepEqual(snippets["Dictionary literal"].prefix, "dict");
+  assert.deepEqual(snippets["Set literal"].prefix, "set");
+  assert.deepEqual(snippets["Tuple literal"].prefix, "tuple");
+  assert.deepEqual(snippets["Range literal"].prefix, "range");
+  assert.deepEqual(snippets["If expression"].prefix, "if-value");
+  assert.deepEqual(snippets["Case expression"].prefix, "case-value");
 });
 
 test("manifest and package include the Emerald extension artwork", () => {

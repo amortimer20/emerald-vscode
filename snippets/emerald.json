@@ -277,5 +277,64 @@
       "\t.${0:result}"
     ],
     "description": "Build a wrapped Emerald method chain"
+  },
+  "List literal": {
+    "prefix": "list",
+    "body": [
+      "[${1:first}, ${2:second}${3:, ${4:third}}]$0"
+    ],
+    "description": "Create an Emerald list literal"
+  },
+  "Dictionary literal": {
+    "prefix": "dict",
+    "body": [
+      "[",
+      "\t${1:key}: ${2:value},",
+      "\t$0",
+      "]"
+    ],
+    "description": "Create an Emerald dictionary literal"
+  },
+  "Set literal": {
+    "prefix": "set",
+    "body": [
+      "var ${1:items}: {${2:Type}} = [",
+      "\t${3:first},",
+      "\t$0",
+      "]"
+    ],
+    "description": "Create an Emerald set literal with an explicit type"
+  },
+  "Tuple literal": {
+    "prefix": "tuple",
+    "body": [
+      "(${1:first}, ${2:second}${3:, ${4:third}})$0"
+    ],
+    "description": "Create an Emerald tuple literal"
+  },
+  "Range literal": {
+    "prefix": "range",
+    "body": [
+      "${1:start}${2:..}${3:end}$0"
+    ],
+    "description": "Create an inclusive or exclusive Emerald range"
+  },
+  "If expression": {
+    "prefix": "if-value",
+    "body": [
+      "if ${1:condition} then ${2:when_true} else ${0:when_false}"
+    ],
+    "description": "Choose a value with an Emerald if expression"
+  },
+  "Case expression": {
+    "prefix": "case-value",
+    "body": [
+      "case ${1:subject} {",
+      "\twhen ${2:first_value} then ${3:first_result}",
+      "\twhen ${4:second_value} then ${5:second_result}",
+      "\telse then ${0:default_result}",
+      "}"
+    ],
+    "description": "Choose a value with an exhaustive Emerald case expression"
   }
 }
