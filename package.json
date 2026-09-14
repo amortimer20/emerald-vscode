@@ -2,12 +2,12 @@
   "name": "emerald-vscode",
   "displayName": "Emerald Lang",
   "description": "Syntax highlighting and editor support for the Emerald programming language.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "emerald-lang",
   "icon": "icons/emerald.png",
   "license": "MIT",
   "engines": {
-    "vscode": "^1.85.0"
+    "vscode": "^1.91.0"
   },
   "categories": [
     "Programming Languages"
@@ -18,12 +18,28 @@
     "language",
     "syntax-highlighting"
   ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onLanguage:emerald"
+  ],
   "scripts": {
+    "check-types": "tsc --noEmit",
+    "compile": "node esbuild.js && npm run check-types",
+    "watch": "node esbuild.js --watch",
+    "pretest": "npm run compile",
     "test": "node --test",
+    "vscode:prepublish": "node esbuild.js --production",
     "package": "vsce package --no-dependencies --allow-missing-repository"
   },
+  "dependencies": {
+    "vscode-languageclient": "10.1.1"
+  },
   "devDependencies": {
+    "@types/node": "26.5.1",
+    "@types/vscode": "1.91.0",
     "@vscode/vsce": "3.9.2",
+    "esbuild": "0.28.2",
+    "typescript": "7.0.2",
     "vscode-oniguruma": "2.0.1",
     "vscode-textmate": "9.3.2"
   },
@@ -54,6 +70,27 @@
         "language": "emerald",
         "path": "./snippets/emerald.json"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Emerald",
+      "properties": {
+        "emerald.serverPath": {
+          "type": "string",
+          "default": "emerald",
+          "description": "Path to the `emerald` executable used to start the language server (`emerald lsp`). Defaults to `emerald` on the PATH. Reload the window after changing this.",
+          "scope": "machine-overridable"
+        },
+        "emerald.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Logs the JSON-RPC traffic between this extension and the Emerald language server, in the 'Emerald Language Server' output channel."
+        }
+      }
+    }
   }
 }

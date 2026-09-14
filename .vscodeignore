@@ -9,3 +9,8 @@ test/**
 node_modules/**
 package-lock.json
 *.log
+src/**
+out/**
+tsconfig.json
+esbuild.js
+*.tsbuildinfo
