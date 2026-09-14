@@ -13,6 +13,47 @@
     ],
     "description": "Declare an inferred constant"
   },
+  "Struct declaration": {
+    "prefix": "struct",
+    "body": [
+      "struct ${1:Name} {",
+      "\tvar ${2:field}: ${3:Type}",
+      "\t$0",
+      "}"
+    ],
+    "description": "Declare an Emerald value type"
+  },
+  "Class declaration": {
+    "prefix": "class",
+    "body": [
+      "class ${1:Name}${2: extends Base} {",
+      "\tvar ${3:field}: ${4:Type}",
+      "\t$0",
+      "}"
+    ],
+    "description": "Declare an Emerald reference type"
+  },
+  "Trait declaration": {
+    "prefix": "trait",
+    "body": [
+      "trait ${1:Name} {",
+      "\t${2:const name: String}",
+      "\t$0",
+      "}"
+    ],
+    "description": "Declare an Emerald trait"
+  },
+  "Enum declaration": {
+    "prefix": "enum",
+    "body": [
+      "enum ${1:Name} {",
+      "\t${2:first_value}",
+      "\t${3:second_value}",
+      "\t$0",
+      "}"
+    ],
+    "description": "Declare an Emerald enum"
+  },
   "Function declaration": {
     "prefix": "func",
     "body": [
@@ -96,5 +137,27 @@
       "}"
     ],
     "description": "Declare an Emerald test function"
+  },
+  "Override method": {
+    "prefix": "override",
+    "body": [
+      "@override",
+      "func ${1:method}() {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Override an inherited Emerald method"
+  },
+  "Abstract class": {
+    "prefix": "abstract",
+    "body": [
+      "@abstract",
+      "class ${1:Name} {",
+      "\t@abstract",
+      "\tfunc ${2:method}(): ${3:Type}",
+      "\t$0",
+      "}"
+    ],
+    "description": "Declare an abstract Emerald class"
   }
 }

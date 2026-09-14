@@ -32,6 +32,10 @@ test("manifest contributes the starter Emerald snippets", () => {
   assert.deepEqual(Object.keys(snippets), [
     "Variable declaration",
     "Constant declaration",
+    "Struct declaration",
+    "Class declaration",
+    "Trait declaration",
+    "Enum declaration",
     "Function declaration",
     "If statement",
     "While loop",
@@ -39,10 +43,16 @@ test("manifest contributes the starter Emerald snippets", () => {
     "Case statement",
     "Try statement",
     "Lambda",
-    "Test function"
+    "Test function",
+    "Override method",
+    "Abstract class"
   ]);
   assert.deepEqual(snippets["Variable declaration"].prefix, "var");
   assert.deepEqual(snippets["Constant declaration"].prefix, "const");
+  assert.deepEqual(snippets["Struct declaration"].prefix, "struct");
+  assert.deepEqual(snippets["Class declaration"].prefix, "class");
+  assert.deepEqual(snippets["Trait declaration"].prefix, "trait");
+  assert.deepEqual(snippets["Enum declaration"].prefix, "enum");
   assert.deepEqual(snippets["Function declaration"].prefix, "func");
   assert.deepEqual(snippets["If statement"].prefix, "if");
   assert.deepEqual(snippets["While loop"].prefix, "while");
@@ -51,6 +61,8 @@ test("manifest contributes the starter Emerald snippets", () => {
   assert.deepEqual(snippets["Try statement"].prefix, "try");
   assert.deepEqual(snippets["Lambda"].prefix, "lambda");
   assert.deepEqual(snippets["Test function"].prefix, "test");
+  assert.deepEqual(snippets["Override method"].prefix, "override");
+  assert.deepEqual(snippets["Abstract class"].prefix, "abstract");
 });
 
 test("manifest and package include the Emerald extension artwork", () => {

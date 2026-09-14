@@ -15,7 +15,7 @@ developed and packaged independently while the Emerald compiler evolves.
   multiline strings, escapes, and interpolated Emerald expressions.
 - Configures comment toggling, bracket matching, automatic closing, surrounding pairs, and
   brace-based indentation.
-- Includes starter snippets for declarations, control flow, lambdas, and test functions.
+- Includes starter snippets for declarations, types, control flow, lambdas, and test functions.
 - Includes a representative Emerald file and tests that load the grammar through VS Code's
   TextMate and Oniguruma libraries.
 
