@@ -64,24 +64,35 @@ server doesn't actually implement.
   rather than through the bundled entry point). `npm test`'s `node --test` is scoped to
   `test/` specifically so it never picks up these files (they `require("vscode")`, which
   only resolves inside that host).
-  - **Written but not yet actually run to a pass in this environment**: `vscode-test`
-    downloads a real VS Code build fine (confirms network access works), but the
-    downloaded Electron binary fails to start here — `libnspr4.so`, `libnss3.so`,
-    `libnssutil3.so`, `libsmime3.so`, and `libasound.so.2` are missing system libraries
-    (`ldd` on the binary confirms exactly these five), and this sandbox has no
-    passwordless `sudo`, so installing them isn't something to do silently. On a machine
-    that can install them (Ubuntu 26.04 here; package names may differ elsewhere):
-    `sudo apt-get install -y libnspr4 libnss3 libasound2t64`, then `npm run
-    test:integration`. Until that's run once for real, treat this suite as compiled and
-    reviewed, not verified end-to-end.
+  - **Written but not yet actually run to a pass in this development sandbox**:
+    `vscode-test` downloads a real VS Code build fine (confirms network access works),
+    but the downloaded Electron binary fails to start here — `libnspr4.so`,
+    `libnss3.so`, `libnssutil3.so`, `libsmime3.so`, and `libasound.so.2` are missing
+    system libraries (`ldd` on the binary confirms exactly these five), and this sandbox
+    has no passwordless `sudo`, so installing them isn't something to do silently. On a
+    machine that can install them (Ubuntu 26.04 here; package names may differ
+    elsewhere): `sudo apt-get install -y libnspr4 libnss3 libasound2t64`, then `npm run
+    test:integration`.
+  - **The round trip this suite exercises has, however, now been verified directly, in
+    a real user's VS Code window (Remote - WSL) with a real `emerald lsp` process** —
+    and it found a real bug this suite would also have caught: `vscode-languageclient`
+    invokes the server as `emerald lsp --stdio`, not the bare `emerald lsp` every manual
+    JSON-RPC test before this had used, and the server rejected the extra argument as
+    misuse (see `../emerald-lang/docs/handoff.md`'s "LSP decisions worth knowing" for
+    the fix and the full symptom chain — a startup exit code buried in the Output
+    channel above a cryptic `Pending response rejected since connection got disposed`).
+    After that fix, diagnostics, `documentSymbol`, and `didChange` were all confirmed
+    working end to end against a real editor. So: proven correct in practice, just not
+    yet by this particular automated suite in this particular sandbox.
 
 ## Known limitations and next work
 
-- **The `@vscode/test-electron` suite needs to actually be run once.** It exists
-  (`src/test/extension.test.ts`, `.vscode-test.mjs`) and compiles, but has not passed in
-  this sandbox — see the missing-system-libraries note above. Run it for real on a
-  machine without that restriction before trusting it as verification rather than
-  as reviewed-but-unexercised code.
+- **The `@vscode/test-electron` suite needs to actually be run once, for its own sake.**
+  It exists (`src/test/extension.test.ts`, `.vscode-test.mjs`) and compiles, and the
+  round trip it covers has separately been confirmed working against a real editor (see
+  the Validation section above) — but the suite itself has not passed in this sandbox,
+  see the missing-system-libraries note there. Worth running for real once, so it is a
+  standing regression check rather than a one-time manual confirmation.
 - **`emerald.serverPath` changes need a manual window reload.** No configuration-change
   listener restarts the client automatically yet; this is documented in the setting's own
   description and in the README rather than silently surprising anyone.
