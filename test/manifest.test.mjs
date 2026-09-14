@@ -29,9 +29,28 @@ test("manifest contributes the starter Emerald snippets", () => {
   assert.ok(snippet);
 
   const snippets = JSON.parse(fs.readFileSync(path.join(root, snippet.path), "utf8"));
-  assert.deepEqual(Object.keys(snippets), ["Function declaration", "If statement"]);
+  assert.deepEqual(Object.keys(snippets), [
+    "Variable declaration",
+    "Constant declaration",
+    "Function declaration",
+    "If statement",
+    "While loop",
+    "For loop",
+    "Case statement",
+    "Try statement",
+    "Lambda",
+    "Test function"
+  ]);
+  assert.deepEqual(snippets["Variable declaration"].prefix, "var");
+  assert.deepEqual(snippets["Constant declaration"].prefix, "const");
   assert.deepEqual(snippets["Function declaration"].prefix, "func");
   assert.deepEqual(snippets["If statement"].prefix, "if");
+  assert.deepEqual(snippets["While loop"].prefix, "while");
+  assert.deepEqual(snippets["For loop"].prefix, "for");
+  assert.deepEqual(snippets["Case statement"].prefix, "case");
+  assert.deepEqual(snippets["Try statement"].prefix, "try");
+  assert.deepEqual(snippets["Lambda"].prefix, "lambda");
+  assert.deepEqual(snippets["Test function"].prefix, "test");
 });
 
 test("manifest and package include the Emerald extension artwork", () => {

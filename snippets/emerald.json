@@ -1,4 +1,18 @@
 {
+  "Variable declaration": {
+    "prefix": "var",
+    "body": [
+      "var ${1:name} = ${0:value}"
+    ],
+    "description": "Declare an inferred mutable variable"
+  },
+  "Constant declaration": {
+    "prefix": "const",
+    "body": [
+      "const ${1:name} = ${0:value}"
+    ],
+    "description": "Declare an inferred constant"
+  },
   "Function declaration": {
     "prefix": "func",
     "body": [
@@ -16,5 +30,71 @@
       "}"
     ],
     "description": "Create a block-based if statement"
+  },
+  "While loop": {
+    "prefix": "while",
+    "body": [
+      "while ${1:condition} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Create a block-based while loop"
+  },
+  "For loop": {
+    "prefix": "for",
+    "body": [
+      "for ${1:item} in ${2:items} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Iterate over an Emerald collection or range"
+  },
+  "Case statement": {
+    "prefix": "case",
+    "body": [
+      "case ${1:subject} {",
+      "\twhen ${2:value} {",
+      "\t\t${3:body}",
+      "\t}",
+      "\telse {",
+      "\t\t${4:body}",
+      "\t}",
+      "}",
+      "$0"
+    ],
+    "description": "Create a case statement with a fallback arm"
+  },
+  "Try statement": {
+    "prefix": "try",
+    "body": [
+      "try {",
+      "\t${1:operation}",
+      "}",
+      "catch ${2:error}: ${3:Error} {",
+      "\t${4:handle error}",
+      "}",
+      "finally {",
+      "\t${5:cleanup}",
+      "}",
+      "$0"
+    ],
+    "description": "Handle an operation with catch and cleanup blocks"
+  },
+  "Lambda": {
+    "prefix": "lambda",
+    "body": [
+      "{ ${1:value} => ${0:expression} }"
+    ],
+    "description": "Create a single-expression lambda"
+  },
+  "Test function": {
+    "prefix": "test",
+    "body": [
+      "@test",
+      "func ${1:name}() {",
+      "\tassert ${0:condition}",
+      "}"
+    ],
+    "description": "Declare an Emerald test function"
   }
 }
