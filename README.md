@@ -58,3 +58,12 @@ in that development window).
 with `tsc --noEmit`); `npm run watch` rebuilds on save. `npm run package` always rebuilds
 from a clean `dist/` first (`vscode:prepublish`), so a stray development artifact never
 ends up in a packaged `.vsix`.
+
+`npm test` runs the fast checks (grammar and manifest, `test/`) with no editor involved.
+`npm run test:integration` goes further: it launches a real, downloaded VS Code build
+with this extension loaded and a real `emerald lsp` running (via `emerald.serverPath`,
+pointed at `../emerald-lang/zig-out/bin/emerald`), and exercises diagnostics, document
+symbols, and formatting through it end to end (`src/test/extension.test.ts`). It needs a
+graphical environment capable of running Electron — see `docs/handoff.md` if it fails to
+launch a downloaded VS Code build (some Linux setups are missing system libraries such as
+`libnspr4`/`libnss3`/`libasound2`).

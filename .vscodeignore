@@ -14,3 +14,5 @@ out/**
 tsconfig.json
 esbuild.js
 *.tsbuildinfo
+.vscode-test/**
+.vscode-test.mjs

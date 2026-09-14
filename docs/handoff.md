@@ -45,23 +45,43 @@ server doesn't actually implement.
   only writes what the *current* build produces — `esbuild.js` now removes `dist/` before
   every build to rule that out) and that `node_modules` is not included (bundling makes
   `vscode-languageclient` part of `dist/extension.js` itself).
-- Not yet done: an automated end-to-end check that a real VS Code instance activates the
-  extension, connects to a running `emerald lsp`, and receives diagnostics — that needs
-  `@vscode/test-electron` (downloads a real VS Code build to drive), which is a
-  reasonable-sized addition of its own rather than something to fold in silently here.
-  Manual verification so far: `npm run compile`'s `tsc --noEmit` step type-checks
+- Manual verification so far: `npm run compile`'s `tsc --noEmit` step type-checks
   `src/extension.ts` against the real `vscode-languageclient`/`@types/vscode` APIs;
   packaging was checked file-by-file (above); the compiler side of the protocol was
   already exercised thoroughly and separately, by hand-framing JSON-RPC messages
   straight at `emerald lsp` (see `../emerald-lang/docs/handoff.md`'s "LSP decisions
   worth knowing").
+- `npm run test:integration` (`@vscode/test-cli` + `@vscode/test-electron`,
+  `src/test/extension.test.ts`) drives a real, downloaded VS Code build with this
+  extension loaded via `--extensionDevelopmentPath`: it points `emerald.serverPath` at
+  the sibling `emerald-lang` repo's `zig-out/bin/emerald` before activating, then opens
+  in-memory (`untitled`) `.em` documents and asserts on `vscode.languages.getDiagnostics`,
+  `vscode.executeDocumentSymbolProvider`, and `vscode.executeFormatDocumentProvider` —
+  i.e. that a real editor round-trip through a real `emerald lsp` process actually works,
+  not just that the client compiles against the right types. `npm run pretest:integration`
+  compiles it (plain `tsc`, to `out/`, separately from `dist/extension.js`'s esbuild
+  bundle, since Mocha loads these files directly inside the Extension Development Host
+  rather than through the bundled entry point). `npm test`'s `node --test` is scoped to
+  `test/` specifically so it never picks up these files (they `require("vscode")`, which
+  only resolves inside that host).
+  - **Written but not yet actually run to a pass in this environment**: `vscode-test`
+    downloads a real VS Code build fine (confirms network access works), but the
+    downloaded Electron binary fails to start here — `libnspr4.so`, `libnss3.so`,
+    `libnssutil3.so`, `libsmime3.so`, and `libasound.so.2` are missing system libraries
+    (`ldd` on the binary confirms exactly these five), and this sandbox has no
+    passwordless `sudo`, so installing them isn't something to do silently. On a machine
+    that can install them (Ubuntu 26.04 here; package names may differ elsewhere):
+    `sudo apt-get install -y libnspr4 libnss3 libasound2t64`, then `npm run
+    test:integration`. Until that's run once for real, treat this suite as compiled and
+    reviewed, not verified end-to-end.
 
 ## Known limitations and next work
 
-- **`@vscode/test-electron` integration test** — the one piece of real verification this
-  slice does not have: launch a real VS Code instance, open a `.em` file, and assert
-  diagnostics/outline/formatting actually arrive from a live `emerald lsp` process. Worth
-  doing before this is considered fully proven, not just plausibly wired correctly.
+- **The `@vscode/test-electron` suite needs to actually be run once.** It exists
+  (`src/test/extension.test.ts`, `.vscode-test.mjs`) and compiles, but has not passed in
+  this sandbox — see the missing-system-libraries note above. Run it for real on a
+  machine without that restriction before trusting it as verification rather than
+  as reviewed-but-unexercised code.
 - **`emerald.serverPath` changes need a manual window reload.** No configuration-change
   listener restarts the client automatically yet; this is documented in the setting's own
   description and in the README rather than silently surprising anyone.

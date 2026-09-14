@@ -9,7 +9,8 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["node", "mocha"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", ".vscode-test", "dist", "out"]
