@@ -2,7 +2,7 @@
 @example
 struct Student {
     const name: String
-    var scores: [Int]
+    var scores: List[Int]
 
     func passing?(): Bool {
         return scores.any? { score => score >= 70 }

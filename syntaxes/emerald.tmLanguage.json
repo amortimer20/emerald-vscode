@@ -213,7 +213,7 @@
       ]
     },
     "builtin-types": {
-      "match": "\\b(?:Nothing|Bool|Int|Float|String)\\b",
+      "match": "\\b(?:Nothing|Bool|Int|Float|String|List|Dict|Set)\\b",
       "name": "support.type.builtin.emerald"
     },
     "keywords": {

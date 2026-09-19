@@ -60,6 +60,9 @@ test("manifest contributes the starter Emerald snippets", () => {
     "Method call",
     "Method chain",
     "List literal",
+    "List type",
+    "Dictionary type",
+    "Set type",
     "Dictionary literal",
     "Set literal",
     "Tuple literal",
@@ -97,6 +100,9 @@ test("manifest contributes the starter Emerald snippets", () => {
   assert.deepEqual(snippets["Method call"].prefix, "method");
   assert.deepEqual(snippets["Method chain"].prefix, "chain");
   assert.deepEqual(snippets["List literal"].prefix, "list");
+  assert.deepEqual(snippets["List type"].prefix, "type-list");
+  assert.deepEqual(snippets["Dictionary type"].prefix, "type-dict");
+  assert.deepEqual(snippets["Set type"].prefix, "type-set");
   assert.deepEqual(snippets["Dictionary literal"].prefix, "dict");
   assert.deepEqual(snippets["Set literal"].prefix, "set");
   assert.deepEqual(snippets["Tuple literal"].prefix, "tuple");

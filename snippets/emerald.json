@@ -285,6 +285,27 @@
     ],
     "description": "Create an Emerald list literal"
   },
+  "List type": {
+    "prefix": "type-list",
+    "body": [
+      "List[${0:Type}]"
+    ],
+    "description": "Write an Emerald list type"
+  },
+  "Dictionary type": {
+    "prefix": "type-dict",
+    "body": [
+      "Dict[${1:Key}, ${0:Value}]"
+    ],
+    "description": "Write an Emerald dictionary type"
+  },
+  "Set type": {
+    "prefix": "type-set",
+    "body": [
+      "Set[${0:Type}]"
+    ],
+    "description": "Write an Emerald set type"
+  },
   "Dictionary literal": {
     "prefix": "dict",
     "body": [

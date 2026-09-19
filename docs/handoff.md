@@ -2,6 +2,12 @@
 
 ## Current milestone
 
+Updated: 2026-09-18. The extension recognizes Emerald's named built-in collection types:
+`List[T]`, `Dict[K, V]`, and `Set[T]`. They receive built-in type scopes in the TextMate
+grammar, appear in the representative sample, and have focused grammar coverage and type
+snippets. The compiler repository remains the source of truth; retired collection type
+spellings receive no special editor support.
+
 Version 0.2.0 adds a language client on top of the 0.1.0 declarative extension: it starts
 the Emerald compiler's own `emerald lsp` and connects it to `.em` files, bringing live
 diagnostics, a document outline, and format-on-save into the editor. It can still be

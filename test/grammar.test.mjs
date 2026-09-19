@@ -51,7 +51,9 @@ test("highlights declarations, built-in types, predicates, and annotations", () 
     "@override",
     "struct Student {",
     "    func passing?(): Bool {",
-    "        const score: Int = 82"
+    "        const score: Int = 82",
+    "        const lookup: Dict[String, List[Int]] = []",
+    "        const seen: Set[String] = []"
   ]);
 
   assert.ok(scopesFor(lines[0], "override").includes("storage.modifier.annotation.emerald"));
@@ -61,6 +63,9 @@ test("highlights declarations, built-in types, predicates, and annotations", () 
   assert.ok(scopesFor(lines[3], "score").includes("variable.other.definition.emerald"));
   assert.ok(scopesFor(lines[3], "Int").includes("support.type.builtin.emerald"));
   assert.ok(scopesFor(lines[3], "82").includes("constant.numeric.emerald"));
+  assert.ok(scopesFor(lines[4], "Dict").includes("support.type.builtin.emerald"));
+  assert.ok(scopesFor(lines[4], "List").includes("support.type.builtin.emerald"));
+  assert.ok(scopesFor(lines[5], "Set").includes("support.type.builtin.emerald"));
 });
 
 test("keeps interpolation as Emerald code inside a string", () => {
