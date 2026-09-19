@@ -2,7 +2,7 @@
   "name": "emerald-vscode",
   "displayName": "Emerald Lang",
   "description": "Syntax highlighting and editor support for the Emerald programming language.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": "emerald-lang",
   "icon": "icons/emerald.png",
   "license": "MIT",

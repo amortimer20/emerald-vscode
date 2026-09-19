@@ -8,7 +8,7 @@ grammar, appear in the representative sample, and have focused grammar coverage 
 snippets. The compiler repository remains the source of truth; retired collection type
 spellings receive no special editor support.
 
-Version 0.2.0 adds a language client on top of the 0.1.0 declarative extension: it starts
+Version 0.2.1 adds named collection-type support on top of the 0.2.0 language-client release: it starts
 the Emerald compiler's own `emerald lsp` and connects it to `.em` files, bringing live
 diagnostics, a document outline, and format-on-save into the editor. It can still be
 developed and packaged independently while the compiler evolves — the client is generic
@@ -45,7 +45,7 @@ server doesn't actually implement.
 - `npm test` (runs `npm run compile` first via `pretest`: esbuild bundle, then
   `tsc --noEmit`) — all ten tests pass (six grammar, four manifest), Node 26.8.1 / npm
   11.19.0.
-- `npm run package` produces `emerald-vscode-0.2.0.vsix`; confirmed the packaged
+- `npm run package` produces `emerald-vscode-0.2.1.vsix`; confirmed the packaged
   `dist/extension.js` has no leftover development source map (a stale one from an earlier
   plain `npm run compile` used to survive into a `--production` package, since esbuild
   only writes what the *current* build produces — `esbuild.js` now removes `dist/` before

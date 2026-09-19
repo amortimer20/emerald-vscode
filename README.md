@@ -40,7 +40,7 @@ either side.
 npm install
 npm test
 npm run package
-code --install-extension emerald-vscode-0.2.0.vsix
+code --install-extension emerald-vscode-0.2.1.vsix
 ```
 
 Open any `.em` file and select **Emerald Lang** if VS Code does not choose it automatically.
