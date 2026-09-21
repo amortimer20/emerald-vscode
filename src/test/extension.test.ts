@@ -118,14 +118,132 @@ suite("Emerald language client", () => {
     });
     await vscode.window.showTextDocument(document);
 
-    const edits = await waitFor("formatting edits", async () => {
-      const result = await vscode.commands.executeCommand<vscode.TextEdit[]>(
-        "vscode.executeFormatDocumentProvider",
-        document.uri
+    // `vscode.executeFormatDocumentProvider` returns VS Code's own minimized
+    // diff against the current text (several small edits removing individual
+    // whitespace runs), not the server's one whole-document edit verbatim, so
+    // no single edit's `newText` holds the fully reformatted line — the
+    // actual post-format document text is what "format on save" promises,
+    // and the only thing worth asserting on.
+    await waitFor("the document to be reformatted", async () => {
+      await vscode.commands.executeCommand("editor.action.formatDocument");
+      return document.getText() === "const x = 1\n" ? true : undefined;
+    });
+  });
+
+  // The server's second LSP phase (hover, go to definition, find references,
+  // rename, completion) needed no client-side code at all —
+  // `vscode-languageclient` negotiates each capability automatically from
+  // what `emerald lsp` advertises during `initialize` — but that was a claim
+  // until it was actually exercised against a live server through a real
+  // editor command, which is what these five do.
+
+  test("shows an inferred type on hover", async () => {
+    const document = await vscode.workspace.openTextDocument({
+      language: "emerald",
+      content: "struct Point {\n    var x: Int\n}\nconst p = Point(1)\nprint(p.x)\n"
+    });
+    await vscode.window.showTextDocument(document);
+
+    const hovers = await waitFor("hover contents", async () => {
+      const result = await vscode.commands.executeCommand<vscode.Hover[]>(
+        "vscode.executeHoverProvider",
+        document.uri,
+        new vscode.Position(4, 8)
       );
       return result && result.length > 0 ? result : undefined;
     });
 
-    assert.ok(edits.some((edit) => edit.newText.includes("const x = 1")));
+    const contents = hovers[0].contents
+      .map((part) => (typeof part === "string" ? part : part.value))
+      .join("\n");
+    assert.match(contents, /Int/);
+  });
+
+  test("jumps to a field's declaration from a member access", async () => {
+    const document = await vscode.workspace.openTextDocument({
+      language: "emerald",
+      content: "struct Point {\n    var x: Int\n}\nconst p = Point(1)\nprint(p.x)\n"
+    });
+    await vscode.window.showTextDocument(document);
+
+    const locations = await waitFor("a definition location", async () => {
+      const result = await vscode.commands.executeCommand<(vscode.Location | vscode.LocationLink)[]>(
+        "vscode.executeDefinitionProvider",
+        document.uri,
+        new vscode.Position(4, 8)
+      );
+      return result && result.length > 0 ? result : undefined;
+    });
+
+    const range = "range" in locations[0] ? locations[0].range : locations[0].targetRange;
+    assert.strictEqual(range.start.line, 1);
+    assert.strictEqual(range.start.character, 8);
+  });
+
+  test("finds every read of a variable", async () => {
+    const document = await vscode.workspace.openTextDocument({
+      language: "emerald",
+      content: "var total = 5\nprint(total)\nprint(total + 1)\n"
+    });
+    await vscode.window.showTextDocument(document);
+
+    const locations = await waitFor("reference locations", async () => {
+      const result = await vscode.commands.executeCommand<vscode.Location[]>(
+        "vscode.executeReferenceProvider",
+        document.uri,
+        new vscode.Position(0, 4)
+      );
+      return result && result.length > 0 ? result : undefined;
+    });
+
+    const lines = locations.map((location) => location.range.start.line).sort();
+    assert.ok(lines.includes(1), `expected a reference on line 1, got ${JSON.stringify(lines)}`);
+    assert.ok(lines.includes(2), `expected a reference on line 2, got ${JSON.stringify(lines)}`);
+  });
+
+  test("renames a field at both its declaration and its use", async () => {
+    const document = await vscode.workspace.openTextDocument({
+      language: "emerald",
+      content: "struct Point {\n    var x: Int\n}\nconst p = Point(1)\nprint(p.x)\n"
+    });
+    await vscode.window.showTextDocument(document);
+
+    const edit = await waitFor("a rename edit", async () => {
+      const result = await vscode.commands.executeCommand<vscode.WorkspaceEdit>(
+        "vscode.executeDocumentRenameProvider",
+        document.uri,
+        new vscode.Position(4, 8),
+        "value"
+      );
+      const entries = result?.get(document.uri);
+      return entries && entries.length > 0 ? entries : undefined;
+    });
+
+    const lines = edit.map((textEdit) => textEdit.range.start.line).sort();
+    assert.deepStrictEqual(lines, [1, 4]);
+    assert.ok(edit.every((textEdit) => textEdit.newText === "value"));
+  });
+
+  test("completes a struct's own fields after a dot, even mid-call with an unclosed paren", async () => {
+    const document = await vscode.workspace.openTextDocument({
+      language: "emerald",
+      content: "struct Point {\n    var x: Int\n    var y: Int\n}\nconst p = Point(1, 2)\nprint(p."
+    });
+    await vscode.window.showTextDocument(document);
+
+    const list = await waitFor("completion items", async () => {
+      const result = await vscode.commands.executeCommand<vscode.CompletionList>(
+        "vscode.executeCompletionItemProvider",
+        document.uri,
+        new vscode.Position(5, 8)
+      );
+      return result && result.items.length > 0 ? result : undefined;
+    });
+
+    const labels = list.items.map((item) =>
+      typeof item.label === "string" ? item.label : item.label.label
+    );
+    assert.ok(labels.includes("x"), `expected "x" among ${JSON.stringify(labels)}`);
+    assert.ok(labels.includes("y"), `expected "y" among ${JSON.stringify(labels)}`);
   });
 });

@@ -1,10 +1,11 @@
 // Starts `emerald lsp` (the Emerald compiler's own language server, see
 // `../emerald-lang/docs/rewrite-context.md` section 18.5) and connects it to
-// `.em` files over stdio. This first slice's server only advertises live
-// diagnostics, document symbols, and format-on-save — hover, go to
-// definition, find references, rename, and completion are not implemented on
-// the server yet, so this client does nothing special for them; VS Code
-// simply will not offer that UI, since the server never claims to support it.
+// `.em` files over stdio. The server now advertises live diagnostics,
+// document symbols, format-on-save, hover, go to definition, find
+// references, rename, and completion (its first two LSP phases) —
+// `vscode-languageclient` negotiates each of these automatically from what
+// the server claims during `initialize`, so this client has no
+// capability-specific code of its own for any of them.
 //
 // `vscode-languageclient` reads the `emerald.serverPath` and
 // `emerald.trace.server` settings on its own by convention, from the `id`

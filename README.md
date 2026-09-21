@@ -11,13 +11,16 @@ The extension provides:
 - starter snippets for declarations, types, constructors, properties, control flow,
   lambdas, collections, expressions, errors, resources, calls, and test functions;
 - comment toggling, bracket matching, automatic closing, and basic indentation;
-- live diagnostics, a document outline, and format-on-save, from the Emerald compiler's
-  own language server (`emerald lsp`).
+- live diagnostics, a document outline, format-on-save, hover, go to definition, find
+  references, rename, and member completion, from the Emerald compiler's own language
+  server (`emerald lsp`).
 
-The grammar follows the compiler's current lexer and will evolve with the language. Hover,
-go to definition, find references, rename, and completion aren't implemented by the
-language server yet, so this extension doesn't offer them either — see the sibling
-`emerald-lang` repository's `docs/handoff.md` for where that stands.
+The grammar follows the compiler's current lexer and will evolve with the language.
+Member completion covers a value's own fields, properties, and methods (walking base
+classes and adopted traits); a type-qualified base's own members (`Vector2.origin`-style)
+and a bare identifier with no preceding dot aren't answered yet — see the sibling
+`emerald-lang` repository's `docs/handoff.md` for where that, and anything else still
+outstanding, stands.
 
 ## The language server
 
