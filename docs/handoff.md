@@ -7,9 +7,10 @@ Updated: 2026-10-01. The grammar now highlights `random` and `exit` as built-in 
 type names: the standard-library types, namespaces, and error classes (`Date`, `Math`,
 `FileError`, and so on); giving them their own scopes is a design choice for the user, and
 the website builds its syntax highlighting from this grammar. The 0.2.1 changelog entry is
-written. `npm audit` reports one high-severity finding in the runtime dependency chain
-(`brace-expansion`, through `vscode-languageclient`) and five more in development tools; not
-yet addressed. Editor intelligence (the compiler's completion and hover for built-in types)
+written. `npm audit` is clean for production dependencies (the lockfile now has
+`brace-expansion` 5.0.12, `fast-uri` 3.1.8, and `serialize-javascript` 7.1.2). Four advisories
+remain, all in development tools; the only fix npm offers is `npm audit fix --force`, which
+downgrades `@vscode/test-cli` to 0.0.11 and is marked breaking, so it is left alone. Editor intelligence (the compiler's completion and hover for built-in types)
 is queued in `../emerald-lang/docs/handoff.md`.
 
 Updated: 2026-09-21. The compiler's `emerald lsp` completed its whole second LSP phase
