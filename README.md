@@ -6,7 +6,7 @@ language you'll enjoy writing.
 ## Requirements
 
 The extension needs Emerald itself. [Install Emerald](https://emerald-lang.web.app/install/), then
-open any `.em` file. If `emerald` isn't on your `PATH`, set the `emerald.serverPath` to the
+open any `.em` file. If `emerald` isn't on your `PATH`, set `emerald.serverPath` to the
 executable.
 
 The extension provides:
@@ -50,7 +50,7 @@ The extension needs VS Code 1.91 or newer.
 npm install
 npm test
 npm run package
-code --install-extension emerald-vscode-0.2.1.vsix
+code --install-extension emerald-vscode-0.2.2.vsix
 ```
 
 Open any `.em` file and select **Emerald Lang** if VS Code does not choose it automatically.
