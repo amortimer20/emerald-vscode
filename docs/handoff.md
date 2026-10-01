@@ -2,6 +2,16 @@
 
 ## Current milestone
 
+Updated: 2026-10-01. The grammar now highlights `random` and `exit` as built-in functions and
+`Bytes` and `Range` as built-in types (`Tuple` is not a type name, so it stays out). Still plain
+type names: the standard-library types, namespaces, and error classes (`Date`, `Math`,
+`FileError`, and so on); giving them their own scopes is a design choice for the user, and
+the website builds its syntax highlighting from this grammar. The 0.2.1 changelog entry is
+written. `npm audit` reports one high-severity finding in the runtime dependency chain
+(`brace-expansion`, through `vscode-languageclient`) and five more in development tools; not
+yet addressed. Editor intelligence (the compiler's completion and hover for built-in types)
+is queued in `../emerald-lang/docs/handoff.md`.
+
 Updated: 2026-09-21. The compiler's `emerald lsp` completed its whole second LSP phase
 (hover, go to definition, find references, rename, and completion — see
 `../emerald-lang/docs/handoff.md`), and none of it needed a single line of client code

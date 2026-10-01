@@ -68,6 +68,20 @@ test("highlights declarations, built-in types, predicates, and annotations", () 
   assert.ok(scopesFor(lines[5], "Set").includes("support.type.builtin.emerald"));
 });
 
+test("highlights Bytes and Range as built-in types, and random and exit as built-in functions", () => {
+  const lines = tokenize([
+    "const data: Bytes = Bytes.from_list([72])",
+    "const span: Range = 1..3",
+    "const roll = random(1..6)",
+    "exit(0)"
+  ]);
+
+  assert.ok(scopesFor(lines[0], "Bytes").includes("support.type.builtin.emerald"));
+  assert.ok(scopesFor(lines[1], "Range").includes("support.type.builtin.emerald"));
+  assert.ok(scopesFor(lines[2], "random").includes("support.function.builtin.emerald"));
+  assert.ok(scopesFor(lines[3], "exit").includes("support.function.builtin.emerald"));
+});
+
 test("keeps interpolation as Emerald code inside a string", () => {
   const [line] = tokenize(["const message = \"Hello, #{student.name.upper()}!\""]);
 
