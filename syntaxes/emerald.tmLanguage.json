@@ -213,7 +213,7 @@
       ]
     },
     "builtin-types": {
-      "match": "\\b(?:Nothing|Bool|Int|Float|String|List|Dict|Set)\\b",
+      "match": "\\b(?:Nothing|Bool|Int|Float|String|Bytes|Range|List|Dict|Set)\\b",
       "name": "support.type.builtin.emerald"
     },
     "keywords": {
@@ -239,7 +239,7 @@
     "function-calls": {
       "patterns": [
         {
-          "match": "\\b(?:print|write|input|input_maybe)(?=\\s*\\()",
+          "match": "\\b(?:print|write|input|input_maybe|random|exit)(?=\\s*\\()",
           "name": "support.function.builtin.emerald"
         },
         {

@@ -39,6 +39,8 @@ either side.
 
 ## Try it locally
 
+The extension needs VS Code 1.91 or newer.
+
 ```sh
 npm install
 npm test
@@ -66,7 +68,7 @@ ends up in a packaged `.vsix`.
 `npm run test:integration` goes further: it launches a real, downloaded VS Code build
 with this extension loaded and a real `emerald lsp` running (via `emerald.serverPath`,
 pointed at `../emerald-lang/zig-out/bin/emerald`), and exercises diagnostics, document
-symbols, and formatting through it end to end (`src/test/extension.test.ts`). It needs a
-graphical environment capable of running Electron — see `docs/handoff.md` if it fails to
-launch a downloaded VS Code build (some Linux setups are missing system libraries such as
-`libnspr4`/`libnss3`/`libasound2`).
+symbols, formatting, hover, go to definition, find references, rename, and completion
+through it end to end (`src/test/extension.test.ts`). It launches Electron, which on some
+Linux setups needs system libraries such as `libnspr4`/`libnss3`/`libasound2` or a virtual
+display — see `docs/handoff.md` if it fails to launch a downloaded VS Code build.
