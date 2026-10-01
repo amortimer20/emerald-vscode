@@ -9,7 +9,7 @@ const root = path.dirname(here);
 const manifest = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
 
 test("manifest uses an extension identity that does not collide with emerald-lang.emerald-lang", () => {
-  assert.equal(`${manifest.publisher}.${manifest.name}`, "emerald-lang.emerald-vscode");
+  assert.equal(`${manifest.publisher}.${manifest.name}`, "amortimer20.emerald-vscode");
 });
 
 test("manifest connects .em files to the Emerald grammar and language configuration", () => {

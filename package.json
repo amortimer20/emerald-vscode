@@ -1,9 +1,9 @@
 {
   "name": "emerald-vscode",
   "displayName": "Emerald Lang",
-  "description": "Syntax highlighting and editor support for the Emerald programming language.",
+  "description": "Editor support for Emerald (emerald-lang.web.app): highlighting, diagnostics, completion, and more.",
   "version": "0.2.2",
-  "publisher": "emerald-lang",
+  "publisher": "amortimer20",
   "icon": "icons/emerald.png",
   "repository": {
     "type": "git",

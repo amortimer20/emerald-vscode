@@ -15,7 +15,7 @@ import * as assert from "node:assert";
 import * as path from "node:path";
 import * as vscode from "vscode";
 
-const EXTENSION_ID = "emerald-lang.emerald-vscode";
+const EXTENSION_ID = "amortimer20.emerald-vscode";
 const SERVER_PATH = path.resolve(__dirname, "../../../emerald-lang/zig-out/bin/emerald");
 
 async function activateExtension(): Promise<void> {

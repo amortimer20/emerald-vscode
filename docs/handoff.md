@@ -137,9 +137,8 @@ server doesn't actually implement.
   dot are not implemented by the server yet (`../emerald-lang/docs/handoff.md`'s rough
   edges) and so are not available here either — same "nothing to do here beyond what
   `vscode-languageclient` already negotiates" situation as the rest of the second phase.
-- The package name is `emerald-vscode`, avoiding a collision with the unrelated published
-  extension `emerald-lang.emerald-lang`. The `publisher` manifest value must still be
-  matched to the actual Visual Studio Marketplace publisher before publication.
-- Repository and issue URLs should be added after the remote repository exists.
+- The extension is `amortimer20.emerald-vscode` (2026-10-01). The `emerald-lang` publisher
+  belongs to someone else, who publishes the unrelated `emerald-lang.emerald-lang` ("Emerald
+  Language", for `.emld` files), so the user publishes under their own account, `amortimer20`.
 - More snippets can be added in small independent slices after the language syntax they
   expose has stabilized.
