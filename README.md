@@ -1,6 +1,13 @@
 # Emerald Lang for Visual Studio Code
 
-Early Visual Studio Code support for the experimental Emerald programming language.
+Visual Studio Code support for [Emerald](https://emerald-lang.web.app), a friendly programming
+language you'll enjoy writing.
+
+## Requirements
+
+The extension needs Emerald itself. [Install Emerald](https://emerald-lang.web.app/install/), then
+open any `.em` file. If `emerald` isn't on your `PATH`, set the `emerald.serverPath` to the
+executable.
 
 The extension provides:
 
@@ -15,12 +22,10 @@ The extension provides:
   references, rename, and member completion, from the Emerald compiler's own language
   server (`emerald lsp`).
 
-The grammar follows the compiler's current lexer and will evolve with the language.
-Member completion covers a value's own fields, properties, and methods (walking base
-classes and adopted traits); a type-qualified base's own members (`Vector2.origin`-style)
-and a bare identifier with no preceding dot aren't answered yet — see the sibling
-`emerald-lang` repository's `docs/handoff.md` for where that, and anything else still
-outstanding, stands.
+The grammar follows the compiler's lexer and grows with the language. Completion offers a
+value's fields, properties, and methods, the members of a type or namespace written before a
+dot, and the names in scope. The members of built-in types such as `String` and `List` are not
+offered yet; that is coming in a later release.
 
 ## The language server
 
