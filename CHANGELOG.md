@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.2
+
+- Add integration coverage for hover, go to definition, find references, rename, and completion;
+  fix the format-on-save test to verify the resulting document text.
+- Highlight `random` and `exit` as built-in functions and `Bytes` and `Range` as built-in types.
+- Update `brace-expansion`, `fast-uri`, and `serialize-javascript` to patched versions.
+
 ## 0.2.1
 
 - Highlight `List`, `Dict`, and `Set` as built-in types, and add `type-list`, `type-dict`, and
