@@ -123,9 +123,21 @@ suite("Emerald language client", () => {
     // whitespace runs), not the server's one whole-document edit verbatim, so
     // no single edit's `newText` holds the fully reformatted line — the
     // actual post-format document text is what "format on save" promises,
-    // and the only thing worth asserting on.
+    // and the only thing worth asserting on. The edits are applied to this
+    // document by URI rather than through `editor.action.formatDocument`,
+    // which acts on whichever editor has focus and so timed out in
+    // environments where the test window did not have it.
     await waitFor("the document to be reformatted", async () => {
-      await vscode.commands.executeCommand("editor.action.formatDocument");
+      const edits = await vscode.commands.executeCommand<vscode.TextEdit[]>(
+        "vscode.executeFormatDocumentProvider",
+        document.uri,
+        { tabSize: 4, insertSpaces: true }
+      );
+      if (edits && edits.length > 0) {
+        const workspaceEdit = new vscode.WorkspaceEdit();
+        workspaceEdit.set(document.uri, edits);
+        await vscode.workspace.applyEdit(workspaceEdit);
+      }
       return document.getText() === "const x = 1\n" ? true : undefined;
     });
   });
