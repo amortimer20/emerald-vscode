@@ -2,7 +2,7 @@
   "name": "emerald-vscode",
   "displayName": "Emerald Lang",
   "description": "Editor support for Emerald (emerald-lang.web.app): highlighting, diagnostics, completion, and more.",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "publisher": "amortimer20",
   "icon": "icons/emerald.png",
   "repository": {
