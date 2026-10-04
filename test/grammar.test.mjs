@@ -82,6 +82,29 @@ test("highlights Bytes and Range as built-in types, and random and exit as built
   assert.ok(scopesFor(lines[3], "exit").includes("support.function.builtin.emerald"));
 });
 
+test("highlights built-in classes and namespaces without matching longer names", () => {
+  const lines = tokenize([
+    "const file = File",
+    "const pi = Math.pi",
+    "const error: RuntimeError",
+    "const relation: Equatable",
+    "const task: Task[Int]",
+    "const filename: FileName"
+  ]);
+  const scope = "support.class.builtin.emerald";
+
+  for (const [line, name] of [
+    [lines[0], "File"],
+    [lines[1], "Math"],
+    [lines[2], "RuntimeError"],
+    [lines[3], "Equatable"],
+    [lines[4], "Task"]
+  ]) {
+    assert.ok(scopesFor(line, name).includes(scope), `expected ${name} to use ${scope}`);
+  }
+  assert.ok(!scopesFor(lines[5], "FileName").includes(scope));
+});
+
 test("keeps interpolation as Emerald code inside a string", () => {
   const [line] = tokenize(["const message = \"Hello, #{student.name.upper()}!\""]);
 

@@ -2,16 +2,16 @@
 
 ## Current milestone
 
-Updated: 2026-10-01. The grammar now highlights `random` and `exit` as built-in functions and
-`Bytes` and `Range` as built-in types (`Tuple` is not a type name, so it stays out). Still plain
-type names: the standard-library types, namespaces, and error classes (`Date`, `Math`,
-`FileError`, and so on); giving them their own scopes is a design choice for the user, and
-the website builds its syntax highlighting from this grammar. The 0.2.1 changelog entry is
-written. `npm audit` is clean for production dependencies (the lockfile now has
-`brace-expansion` 5.0.12, `fast-uri` 3.1.8, and `serialize-javascript` 7.1.2). Four advisories
-remain, all in development tools; the only fix npm offers is `npm audit fix --force`, which
-downgrades `@vscode/test-cli` to 0.0.11 and is marked breaking, so it is left alone. Editor intelligence (the compiler's completion and hover for built-in types)
-is queued in `../emerald-lang/docs/handoff.md`.
+Updated: 2026-10-03. Editor intelligence slice 6, parts 1 and 2, is implemented on
+`copilot/slice-6-version-and-builtins`; the change is not merged or published. Activation
+runs the configured `emerald.serverPath` (or `emerald` on `PATH`)
+with `--version` before starting the language client. On success, the first output-channel
+line is `Using <full path>: <version output>` and a right-aligned status item shows the
+version; clicking it opens the channel. A failed or missing version probe creates no status
+item and leaves the existing language-server startup error handling intact. The grammar has
+a separate `support.class.builtin.emerald` whole-word scope for the requested standard
+library classes and namespaces; the existing `support.type.builtin.emerald` rule is unchanged.
+The package version remains 0.2.2, and no release notes were written.
 
 Updated: 2026-09-21. The compiler's `emerald lsp` completed its whole second LSP phase
 (hover, go to definition, find references, rename, and completion — see
@@ -61,6 +61,11 @@ LSP wiring, not aware of Emerald's semantics itself.
   `vscode-languageclient` from the `emerald` client id passed to `LanguageClient`).
 - A friendly error message (naming the path that was tried) if the server fails to start,
   on top of `vscode-languageclient`'s own built-in error/restart handling.
+- Activation records the configured server's version as the first line of the language
+  client's output channel and exposes that version in a right-aligned, clickable status
+  item; neither is shown if the version probe fails.
+- Built-in class and namespace names use a separate whole-word grammar scope, covered by
+  the representative sample and focused TextMate tests.
 - `.vscode/tasks.json`'s `npm: watch` task is `F5`'s `preLaunchTask`, so the Extension
   Development Host always launches against a freshly built `dist/extension.js`.
 
@@ -75,15 +80,13 @@ server doesn't actually implement.
 
 ## Validation
 
+- `npm ci` completed. npm reported 10 dependency advisories (2 low, 1 moderate, 7 high);
+  no dependency or lockfile changes were made for this slice.
 - `npm test` (runs `npm run compile` first via `pretest`: esbuild bundle, then
-  `tsc --noEmit`) — all ten tests pass (six grammar, four manifest), Node 26.8.1 / npm
-  11.19.0.
-- `npm run package` produces `emerald-vscode-0.2.1.vsix`; confirmed the packaged
-  `dist/extension.js` has no leftover development source map (a stale one from an earlier
-  plain `npm run compile` used to survive into a `--production` package, since esbuild
-  only writes what the *current* build produces — `esbuild.js` now removes `dist/` before
-  every build to rule that out) and that `node_modules` is not included (bundling makes
-  `vscode-languageclient` part of `dist/extension.js` itself).
+  `tsc --noEmit`) — all 12 tests pass (8 grammar, 4 manifest).
+- `npm run package -- --out /tmp/emerald-vscode-slice-6.vsix` produced an 11-file,
+  112.96 KB VSIX without overwriting the pre-existing ignored package artifact. The
+  package contains the bundled `dist/extension.js`, but no source map or `node_modules/`.
 - Manual verification so far: `npm run compile`'s `tsc --noEmit` step type-checks
   `src/extension.ts` against the real `vscode-languageclient`/`@types/vscode` APIs;
   packaging was checked file-by-file (above); the compiler side of the protocol was
@@ -101,10 +104,10 @@ server doesn't actually implement.
   through the bundled entry point). `npm test`'s `node --test` is scoped to `test/`
   specifically so it never picks up these files (they `require("vscode")`, which only
   resolves inside that host).
-  - **Now actually passing in this sandbox** (previously blocked — see below): 9 tests,
+  - **Now actually passing in this sandbox** (previously blocked — see below): 10 tests,
     covering `vscode.languages.getDiagnostics` (a diagnostic appearing and clearing),
-    `executeDocumentSymbolProvider`, a real "Format Document" command's effect on the
-    document's text, and — the second LSP phase's own coverage —
+    `executeDocumentSymbolProvider`, the Emerald version status item, a real "Format
+    Document" command's effect on the document's text, and — the second LSP phase's own coverage —
     `executeHoverProvider` (an inferred type), `executeDefinitionProvider` (a field
     access jumping to its declaration), `executeReferenceProvider` (every read of a
     variable), `executeDocumentRenameProvider` (a field renamed at both its declaration
