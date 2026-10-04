@@ -17,6 +17,7 @@ import * as vscode from "vscode";
 
 const EXTENSION_ID = "amortimer20.emerald-vscode";
 const SERVER_PATH = path.resolve(__dirname, "../../../emerald-lang/zig-out/bin/emerald");
+let versionStatusBarItem: vscode.StatusBarItem | undefined;
 
 async function activateExtension(): Promise<void> {
   const configuration = vscode.workspace.getConfiguration("emerald");
@@ -24,7 +25,10 @@ async function activateExtension(): Promise<void> {
 
   const extension = vscode.extensions.getExtension(EXTENSION_ID);
   assert.ok(extension, `extension '${EXTENSION_ID}' was not found among the installed extensions`);
-  await extension.activate();
+  const api = (await extension.activate()) as {
+    versionStatusBarItem?: vscode.StatusBarItem;
+  };
+  versionStatusBarItem = api.versionStatusBarItem;
 }
 
 async function waitFor<T>(
@@ -46,6 +50,11 @@ async function waitFor<T>(
 suite("Emerald language client", () => {
   suiteSetup(async () => {
     await activateExtension();
+  });
+
+  test("shows the Emerald server version in the status bar", () => {
+    assert.ok(versionStatusBarItem, "expected a version status bar item");
+    assert.match(versionStatusBarItem.text, /^Emerald /);
   });
 
   test("publishes a diagnostic for an invalid document", async () => {

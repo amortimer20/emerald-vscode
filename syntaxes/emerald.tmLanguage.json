@@ -10,6 +10,7 @@
     { "include": "#members" },
     { "include": "#constants" },
     { "include": "#builtin-types" },
+    { "include": "#builtin-classes" },
     { "include": "#keywords" },
     { "include": "#numbers" },
     { "include": "#function-calls" },
@@ -215,6 +216,10 @@
     "builtin-types": {
       "match": "\\b(?:Nothing|Bool|Int|Float|String|Bytes|Range|List|Dict|Set)\\b",
       "name": "support.type.builtin.emerald"
+    },
+    "builtin-classes": {
+      "match": "\\b(?:AssertionError|Base64|CancelledError|Channel|Console|Csv|CsvError|Date|DateTime|DateTimeError|DeadlockError|Digest|Directory|Duration|EncodingError|Equatable|Error|File|FileError|FileHandle|FileWriter|Hashable|Http|HttpError|InputError|Instant|Json|JsonError|Math|Ordered|Path|Program|Random|RecursionError|Regex|RegexError|RuntimeError|Stopwatch|Task|TaskGroup|Tasks|Textual|Time|TimeZone|Weekday)\\b",
+      "name": "support.class.builtin.emerald"
     },
     "keywords": {
       "patterns": [

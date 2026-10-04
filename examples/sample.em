@@ -19,3 +19,11 @@ student.scores.append(88)
 const path = 'C:\Users\Ava'
 const message = "#{student.name}: #{student.scores.count} scores"
 print(message)
+
+# Built-in class names for grammar inspection:
+# AssertionError Base64 CancelledError Channel Console Csv CsvError Date DateTime
+# DateTimeError DeadlockError Digest Directory Duration EncodingError Equatable
+# Error File FileError FileHandle FileWriter Hashable Http HttpError InputError
+# Instant Json JsonError Math Ordered Path Program Random RecursionError Regex
+# RegexError RuntimeError Stopwatch Task TaskGroup Tasks Textual Time TimeZone
+# Weekday
