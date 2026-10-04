@@ -19,13 +19,17 @@ The extension provides:
   lambdas, collections, expressions, errors, resources, calls, and test functions;
 - comment toggling, bracket matching, automatic closing, and basic indentation;
 - live diagnostics, a document outline, format-on-save, hover, go to definition, find
-  references, rename, and member completion, from the Emerald compiler's own language
-  server (`emerald lsp`).
+  references, rename, completion, signature help, and quick fixes, from the Emerald compiler's
+  own language server (`emerald lsp`);
+- the `emerald` version in use, shown in the status bar.
 
 The grammar follows the compiler's lexer and grows with the language. Completion offers a
-value's fields, properties, and methods, the members of a type or namespace written before a
-dot, and the names in scope. The members of built-in types such as `String` and `List` are not
-offered yet; that is coming in a later release.
+value's fields, properties, and methods, including those of built-in types such as `String` and
+`List`, the members of a type or namespace written before a dot, and the names in scope. Hover
+shows a signature, a short description, and a link to the Emerald website. Signature help marks
+the parameter you are writing, and quick fixes correct a few common mistakes with one click.
+Completion of built-in members, hover descriptions, signature help, and quick fixes need
+Emerald 0.7.0 or newer.
 
 ## The language server
 
@@ -50,7 +54,7 @@ The extension needs VS Code 1.91 or newer.
 npm install
 npm test
 npm run package
-code --install-extension emerald-vscode-0.2.2.vsix
+code --install-extension emerald-vscode-0.3.0.vsix
 ```
 
 Open any `.em` file and select **Emerald Lang** if VS Code does not choose it automatically.

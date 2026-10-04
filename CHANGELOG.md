@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.3.0
+
+Completion, hover, signature help, and quick fixes come from the `emerald` executable, and the
+richer behavior below needs Emerald 0.7.0 or newer. Highlighting and the version display work with
+any version.
+
+- Completion offers the members of built-in types and namespaces, such as `String`, `List`,
+  `File`, and `Math`, each with its signature and a one-line description. Choosing a method writes
+  its parentheses, and leaves the cursor between them when it takes arguments.
+- Hover shows a member's signature, a plain-language summary, whether it can raise an error, and a
+  link to its page on the Emerald website. Your own declarations show their `##` comments.
+- Signature help appears as you write a call, after `(` and after each `,`, with the current
+  parameter marked. It covers functions, methods, constructors, default values, named arguments,
+  and overloads.
+- Quick fixes offer one-click corrections for a few mistakes: another language's name for a
+  method (`push` becomes `append`, `has_key` becomes `contains_key?`), `this` for `self`, and a
+  misspelled annotation (`@overide` becomes `@override`).
+- The status bar shows which `emerald` the extension started and its version. Clicking it opens
+  the "Emerald Language Server" output channel, whose first line names the executable's full path.
+- Highlight the built-in classes and namespaces (`File`, `Math`, `Json`, `RuntimeError`, and the
+  rest) like the built-in types.
+- Make the format-on-save integration test independent of which editor has focus.
+
 ## 0.2.2
 
 - Add integration coverage for hover, go to definition, find references, rename, and completion;

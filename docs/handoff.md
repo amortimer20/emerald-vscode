@@ -2,16 +2,18 @@
 
 ## Current milestone
 
-Updated: 2026-10-03. Editor intelligence slice 6, parts 1 and 2, is implemented on
-`copilot/slice-6-version-and-builtins`; the change is not merged or published. Activation
-runs the configured `emerald.serverPath` (or `emerald` on `PATH`)
-with `--version` before starting the language client. On success, the first output-channel
-line is `Using <full path>: <version output>` and a right-aligned status item shows the
-version; clicking it opens the channel. A failed or missing version probe creates no status
-item and leaves the existing language-server startup error handling intact. The grammar has
-a separate `support.class.builtin.emerald` whole-word scope for the requested standard
-library classes and namespaces; the existing `support.type.builtin.emerald` rule is unchanged.
-The package version remains 0.2.2, and no release notes were written.
+Updated: 2026-10-04. Version 0.3.0 is prepared and not yet published; the user publishes and
+tags it (`npx vsce publish`, then `v0.3.0`), after Emerald 0.7.0 is released, because the
+completion, hover, signature help, and quick-fix behavior it describes comes from that
+compiler release (0.6.0's server has completion and hover but no signature help or code
+actions). The release adds the version display (activation runs the configured `emerald.serverPath`,
+or `emerald` on `PATH`, with `--version`; the output channel's first line is
+`Using <full path>: <version output>` and a right-aligned status item shows the version and opens
+the channel; a failed probe creates no item and leaves the startup error alone) and a separate
+`support.class.builtin.emerald` grammar scope for the standard library's classes and
+namespaces, with the existing `support.type.builtin.emerald` rule unchanged. The website's two
+themes colour it. 0.2.2 was built but never published, so 0.3.0 is the first Marketplace
+release; its notes are in `CHANGELOG.md`.
 
 Updated: 2026-09-21. The compiler's `emerald lsp` completed its whole second LSP phase
 (hover, go to definition, find references, rename, and completion — see
