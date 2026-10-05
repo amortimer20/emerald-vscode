@@ -2,18 +2,19 @@
 
 ## Current milestone
 
-Updated: 2026-10-04. Version 0.3.0 is prepared and not yet published; the user publishes and
-tags it (`npx vsce publish`, then `v0.3.0`), after Emerald 0.7.0 is released, because the
-completion, hover, signature help, and quick-fix behavior it describes comes from that
-compiler release (0.6.0's server has completion and hover but no signature help or code
-actions). The release adds the version display (activation runs the configured `emerald.serverPath`,
-or `emerald` on `PATH`, with `--version`; the output channel's first line is
-`Using <full path>: <version output>` and a right-aligned status item shows the version and opens
-the channel; a failed probe creates no item and leaves the startup error alone) and a separate
-`support.class.builtin.emerald` grammar scope for the standard library's classes and
-namespaces, with the existing `support.type.builtin.emerald` rule unchanged. The website's two
-themes colour it. 0.2.2 was built but never published, so 0.3.0 is the first Marketplace
-release; its notes are in `CHANGELOG.md`.
+Updated: 2026-10-05. Version 0.3.0 is published on the Marketplace (2026-10-04; 0.2.2 was
+published 2026-10-01). The published package is byte-identical to a build of `638d8cd`. The
+user's `v0.3.0` tag, a lightweight tag on that commit, existed only locally when this was
+written; push it with `git push origin v0.3.0`. The completion, hover, signature help, and
+quick-fix behavior the release describes comes from Emerald 0.7.0 (0.6.0's server has completion
+and hover but no signature help or code actions); the README and changelog say so, and 0.7.0
+is in its release-candidate stage (`v0.7.0-rc1`). The release adds the version display
+(activation runs the configured `emerald.serverPath`, or `emerald` on `PATH`, with `--version`;
+the output channel's first line is `Using <full path>: <version output>` and a right-aligned
+status item shows the version and opens the channel; a failed probe creates no item and leaves
+the startup error alone) and a separate `support.class.builtin.emerald` grammar scope for the
+standard library's classes and namespaces, with the existing `support.type.builtin.emerald`
+rule unchanged. The website's two themes colour it. Its notes are in `CHANGELOG.md`.
 
 Updated: 2026-09-21. The compiler's `emerald lsp` completed its whole second LSP phase
 (hover, go to definition, find references, rename, and completion — see
