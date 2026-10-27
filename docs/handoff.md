@@ -9,9 +9,8 @@ completion, hover, signature help, and quick fixes the 0.3.0 README and changelo
 released on 2026-10-11 (0.6.0's server has completion and hover but no signature help or code
 actions; the README says so).
 
-**Open: the `v0.3.0` tag does not exist.** The remote has only `v0.2.1`, and on 2026-10-27 the
-local checkout had no `v0.3.0` either, though earlier notes recorded a local lightweight one.
-Recreate it on `638d8cd` and push it (the user's step).
+The `v0.3.0` tag is an annotated tag on `638d8cd`, pushed 2026-10-27. Earlier notes recorded a
+local lightweight tag, but it had been lost, so it was recreated.
 
 0.3.0 added the version display (activation runs the configured `emerald.serverPath`, or
 `emerald` on `PATH`, with `--version`; the output channel's first line is
